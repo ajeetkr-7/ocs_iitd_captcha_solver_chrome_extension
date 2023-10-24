@@ -12,7 +12,6 @@ Easily solves the captchas and auto logins into the ocs iitd portal 🎉
 ## Note 📝:
 1. This extension is only for students of IIT Delhi 🎓
 2. This extension is only for educational purposes 📚
-3. This extension is not affiliated with IIT Delhi in any way 🚫
 
 ## How it works 💡
 1. The implementation has been made possible just because the OCS Dev🕵️‍♂️Team is using a wague implementation of captcha, That's all you need to know 😌
