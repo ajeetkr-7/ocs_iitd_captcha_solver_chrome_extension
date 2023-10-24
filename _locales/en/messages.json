@@ -1,0 +1,5 @@
+{
+  "appName": { "message": "ocs-captcha-solver" },
+  "appShortName": { "message": "ocs-captcha-solver" },
+  "appDescription": { "message": "automatically logins to ocs portal" }
+}
