@@ -1,8 +1,8 @@
 /*! For license information please see background.js.LICENSE.txt */
 
-// Enter Your password here
-const kerberos_username = "your_username";
-const kerberos_password = "your_password";
+/** Enter Your Credentials Here */
+let userId = "KERBEROS_ID"; //ee3200577
+let password = "KERBEROS_PASSWORD"; //12345678
 
 (() => {
   var t = {
@@ -160,9 +160,9 @@ const kerberos_password = "your_password";
             var d = u._ff,
               y = u._gg,
               g = u._hh,
-              S = u._ii;
+              v = u._ii;
             for (h = 0; h < r.length; h += 16) {
-              var v = i,
+              var S = i,
                 b = l,
                 m = f,
                 T = p;
@@ -227,7 +227,7 @@ const kerberos_password = "your_password";
                 (i = g(i, l, f, p, r[h + 9], 4, -640364487)),
                 (p = g(p, i, l, f, r[h + 12], 11, -421815835)),
                 (f = g(f, p, i, l, r[h + 15], 16, 530742520)),
-                (i = S(
+                (i = v(
                   i,
                   (l = g(l, f, p, i, r[h + 2], 23, -995338651)),
                   f,
@@ -236,22 +236,22 @@ const kerberos_password = "your_password";
                   6,
                   -198630844
                 )),
-                (p = S(p, i, l, f, r[h + 7], 10, 1126891415)),
-                (f = S(f, p, i, l, r[h + 14], 15, -1416354905)),
-                (l = S(l, f, p, i, r[h + 5], 21, -57434055)),
-                (i = S(i, l, f, p, r[h + 12], 6, 1700485571)),
-                (p = S(p, i, l, f, r[h + 3], 10, -1894986606)),
-                (f = S(f, p, i, l, r[h + 10], 15, -1051523)),
-                (l = S(l, f, p, i, r[h + 1], 21, -2054922799)),
-                (i = S(i, l, f, p, r[h + 8], 6, 1873313359)),
-                (p = S(p, i, l, f, r[h + 15], 10, -30611744)),
-                (f = S(f, p, i, l, r[h + 6], 15, -1560198380)),
-                (l = S(l, f, p, i, r[h + 13], 21, 1309151649)),
-                (i = S(i, l, f, p, r[h + 4], 6, -145523070)),
-                (p = S(p, i, l, f, r[h + 11], 10, -1120210379)),
-                (f = S(f, p, i, l, r[h + 2], 15, 718787259)),
-                (l = S(l, f, p, i, r[h + 9], 21, -343485551)),
-                (i = (i + v) >>> 0),
+                (p = v(p, i, l, f, r[h + 7], 10, 1126891415)),
+                (f = v(f, p, i, l, r[h + 14], 15, -1416354905)),
+                (l = v(l, f, p, i, r[h + 5], 21, -57434055)),
+                (i = v(i, l, f, p, r[h + 12], 6, 1700485571)),
+                (p = v(p, i, l, f, r[h + 3], 10, -1894986606)),
+                (f = v(f, p, i, l, r[h + 10], 15, -1051523)),
+                (l = v(l, f, p, i, r[h + 1], 21, -2054922799)),
+                (i = v(i, l, f, p, r[h + 8], 6, 1873313359)),
+                (p = v(p, i, l, f, r[h + 15], 10, -30611744)),
+                (f = v(f, p, i, l, r[h + 6], 15, -1560198380)),
+                (l = v(l, f, p, i, r[h + 13], 21, 1309151649)),
+                (i = v(i, l, f, p, r[h + 4], 6, -145523070)),
+                (p = v(p, i, l, f, r[h + 11], 10, -1120210379)),
+                (f = v(f, p, i, l, r[h + 2], 15, 718787259)),
+                (l = v(l, f, p, i, r[h + 9], 21, -343485551)),
+                (i = (i + S) >>> 0),
                 (l = (l + b) >>> 0),
                 (f = (f + m) >>> 0),
                 (p = (p + T) >>> 0);
@@ -483,7 +483,7 @@ const kerberos_password = "your_password";
     (() => {
       const t = r(568),
         e = r(207);
-      let n = kerberos_password;
+      let n = password;
       (n = t(n)),
         document.addEventListener("logged-in", () => {
           location.reload();
@@ -492,7 +492,25 @@ const kerberos_password = "your_password";
           (function () {
             try {
               const t = localStorage.getItem("OCS-JWT");
-              return null === t ? (console.log("OCS-JWT not found"), null) : t;
+              return null === t
+                ? (console.log("OCS-JWT not found"), null)
+                : (function (t) {
+                    try {
+                      const r = e.decodeToken(t);
+                      if (r.exp) {
+                        const t = new Date(0);
+                        return (
+                          t.setUTCSeconds(r.exp),
+                          t.valueOf() > new Date().valueOf()
+                        );
+                      }
+                      return !1;
+                    } catch (t) {
+                      return console.log(t), !1;
+                    }
+                  })(t)
+                ? t
+                : (console.log("OCS-JWT expired"), null);
             } catch (t) {
               return console.log(t), null;
             }
@@ -520,7 +538,7 @@ const kerberos_password = "your_password";
                       method: "POST",
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify({
-                        username: kerberos_username,
+                        username: userId,
                         password: n,
                         captcha: r,
                         captchaToken: t,
